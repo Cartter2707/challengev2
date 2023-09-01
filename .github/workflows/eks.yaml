@@ -13,8 +13,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Minikube
-        uses: docker/setup-minikube@v1
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
           version: latest
