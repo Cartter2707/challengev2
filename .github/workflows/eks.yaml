@@ -23,4 +23,4 @@ jobs:
 
       - name: Deploy App (Deployment)
         run: |
-          kubectl apply -f deploy.yaml --server=https://localhost:8080
+          kubectl apply -f deploy.yaml --server=https://127.0.0.1:46077
