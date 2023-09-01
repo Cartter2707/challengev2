@@ -19,13 +19,6 @@ jobs:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
           version: latest
 
-      - name: Configure kubectl
-        run: |
-          kubectl config set-cluster minikube --server=https://localhost:8443 --certificate-authority=/home/runner/.minikube/ca.crt
-          kubectl config set-credentials runner --client-key=/home/runner/.minikube/profiles/minikube/client.key --client-certificate=/home/runner/.minikube/profiles/minikube/client.crt
-          kubectl config set-context default --cluster=minikube --user=runner
-          kubectl config use-context default
-
       - name: Deploy App (Deployment)
         run: |
-          kubectl apply -f deploy.yaml
+          kubectl apply -f deploy.yaml --server=https://localhost:8443 
