@@ -1,4 +1,4 @@
-name: Deploy to Minikube
+name: Kubernetes Deploy
 
 on:
   push:
@@ -8,22 +8,17 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+      
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Set up Minikube
-        uses: docker/setup-minikube@v3
+        uses: docker/setup-minikube@v1
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+          version: latest
 
-      - name: Configure kubectl
-        run: |
-          kubectl config set-cluster minikube --server=https://localhost:8443 --certificate-authority=/home/runner/.minikube/ca.crt
-          kubectl config set-credentials runner --client-key=/home/runner/.minikube/profiles/minikube/client.key --client-certificate=/home/runner/.minikube/profiles/minikube/client.crt
-          kubectl config set-context default --cluster=minikube --user=runner
-          kubectl config use-context default
-
-      - name: Deploy to Minikube
+      - name: Deploy App (Deployment)
         run: |
           kubectl apply -f deploy.yaml
-        working-directory: ${{ github.workspace }}
