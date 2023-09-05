@@ -24,3 +24,4 @@ jobs:
       - name: Deploy App (Deployment)
         run: |
           kubectl apply -f deploy.yaml --server=https://192.168.49.2:2379
+          
